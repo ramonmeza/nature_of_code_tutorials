@@ -1,0 +1,5 @@
+*.json text
+*.json5 text
+*.md text
+*.py text
+*.txt text
