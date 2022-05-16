@@ -1,4 +1,5 @@
-from random import choice, randint
+from random import choices, randint
+from typing import List
 
 from pygame.color import Color
 
@@ -19,9 +20,9 @@ class Walker:
         self._max_x = max_x
         self._max_y = max_y
 
-    def walk(self) -> None:
-        next_x = self.x + choice([-1, 1])
-        next_y = self.y + choice([-1, 1])
+    def walk(self, weights: List[float] = [0.5, 0.5]) -> None:
+        next_x = self.x + choices([-1, 1], weights, k=1)[0]
+        next_y = self.y + choices([-1, 1], weights, k=1)[0]
         self.x = clamp(next_x, 0, self._max_x)
         self.y = clamp(next_y, 0, self._max_y)
 
@@ -41,7 +42,7 @@ class RandomWalker(Lesson):
         self.fill(Color(255, 255, 255))
 
     def tick(self) -> None:
-        self.walker.walk()
+        self.walker.walk([0.47, 0.53])
 
     def _render(self) -> None:
         walk_color: Color = Color(randint(0, 255), randint(0, 255), randint(0, 255))
