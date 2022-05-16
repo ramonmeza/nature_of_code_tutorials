@@ -20,8 +20,10 @@ class Walker:
         self._max_y = max_y
 
     def walk(self) -> None:
-        self.x += choice([-1, 1])
-        self.y += choice([-1, 1])
+        next_x = self.x + choice([-1, 1])
+        next_y = self.y + choice([-1, 1])
+        self.x = clamp(next_x, 0, self._max_x)
+        self.y = clamp(next_y, 0, self._max_y)
 
 
 class RandomWalker(Lesson):
