@@ -45,7 +45,7 @@ class App:
         else:
             self._window = pyg.display.set_mode(window_size)
 
-        pyg.display.set_caption('Pygame Chip-8 Interpreter')
+        pyg.display.set_caption('Nature of Code')
 
     def _initialize_gui(self) -> None:
         self._gui_manager = gui.UIManager(self._window.get_size())
