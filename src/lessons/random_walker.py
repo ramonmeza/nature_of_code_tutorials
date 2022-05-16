@@ -1,16 +1,24 @@
 from dataclasses import dataclass
-from random import choice
+from random import choice, randint
 
 from pygame.color import Color
 
 from lessons.lesson import Lesson
 from utils import clamp
 
-@dataclass
+
 class Walker:
 
     x: int
     y: int
+    _max_x: int
+    _max_y: int
+
+    def __init__(self, x: int, y: int, max_x: int, max_y: int) -> None:
+        self.x = x
+        self.y = y
+        self._max_x = max_x
+        self._max_y = max_y
 
     def walk(self) -> None:
         self.x += choice([-1, 1])
@@ -23,13 +31,17 @@ class RandomWalker(Lesson):
 
     def __init__(self) -> None:
         super().__init__()
-        self.walker = Walker(int(self.get_width() / 2), int(self.get_height() / 2))
+        self.walker = Walker(
+            int(self.get_width() / 2),
+            int(self.get_height() / 2),
+            self.get_width(),
+            self.get_height())
+        
         self.fill(Color(255, 255, 255))
 
     def tick(self) -> None:
         self.walker.walk()
 
     def _render(self) -> None:
-        self.walker.x = clamp(int(self.walker.x), 0, self.get_width())
-        self.walker.y = clamp(int(self.walker.y), 0, self.get_height())
-        self.set_at([self.walker.x, self.walker.y], Color(0, 0, 0))
+        walk_color: Color = Color(randint(0, 255), randint(0, 255), randint(0, 255))
+        self.set_at([self.walker.x, self.walker.y], walk_color)
