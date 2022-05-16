@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from random import choice, randint
 
 from pygame.color import Color
