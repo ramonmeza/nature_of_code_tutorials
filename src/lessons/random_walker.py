@@ -4,6 +4,7 @@ from random import choice
 from pygame.color import Color
 
 from lessons.lesson import Lesson
+from utils import clamp
 
 @dataclass
 class Walker:
@@ -12,8 +13,8 @@ class Walker:
     y: int
 
     def walk(self) -> None:
-       self.x += choice([-1, 1])
-       self.y += choice([-1, 1])
+        self.x += choice([-1, 1])
+        self.y += choice([-1, 1])
 
 
 class RandomWalker(Lesson):
@@ -29,4 +30,6 @@ class RandomWalker(Lesson):
         self.walker.walk()
 
     def _render(self) -> None:
-        self.set_at([int(self.walker.x), int(self.walker.y)], Color(0, 0, 0))
+        self.walker.x = clamp(int(self.walker.x), 0, self.get_width())
+        self.walker.y = clamp(int(self.walker.y), 0, self.get_height())
+        self.set_at([self.walker.x, self.walker.y], Color(0, 0, 0))
